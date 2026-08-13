@@ -1,173 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?>
+package com.example.prgm7calc;
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".MainActivity">
+import androidx.appcompat.app.AppCompatActivity;
 
-    <EditText
-        android:id="@+id/edittext"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:inputType="numberDecimal"
-        android:gravity="right"
-        android:text=""
-        android:textSize="28sp" />
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="6"
-        android:padding="4dp">
+public class MainActivity extends AppCompatActivity {
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="1"
-            android:textSize="28sp" />
+    EditText editText;
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="2"
-            android:textSize="28sp" />
+    Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0;
+    Button plus, sub, mul, div, equal, ac;
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="3"
-            android:textSize="28sp" />
+    float value1, value2;
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="4"
-            android:textSize="28sp" />
+    boolean Addition, Subtraction, Multiplication, Division;
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="5"
-            android:textSize="28sp" />
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="6"
-            android:textSize="28sp" />
+        editText = findViewById(R.id.edittext);
 
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="7"
-            android:textSize="28sp" />
+        b1 = findViewById(R.id.button);
+        b2 = findViewById(R.id.button4);
+        b3 = findViewById(R.id.button5);
+        b4 = findViewById(R.id.button6);
+        b5 = findViewById(R.id.button7);
+        b6 = findViewById(R.id.button8);
+        b7 = findViewById(R.id.button9);
+        b8 = findViewById(R.id.button10);
+        b9 = findViewById(R.id.button11);
+        b0 = findViewById(R.id.button13);
 
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="8"
-            android:textSize="28sp" />
+        plus = findViewById(R.id.button12);
+        sub = findViewById(R.id.button14);
+        mul = findViewById(R.id.button15);
+        div = findViewById(R.id.button16);
+        equal = findViewById(R.id.button17);
+        ac = findViewById(R.id.button18);
 
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="9"
-            android:textSize="28sp" />
+        b1.setOnClickListener(v -> addNumber("1"));
+        b2.setOnClickListener(v -> addNumber("2"));
+        b3.setOnClickListener(v -> addNumber("3"));
+        b4.setOnClickListener(v -> addNumber("4"));
+        b5.setOnClickListener(v -> addNumber("5"));
+        b6.setOnClickListener(v -> addNumber("6"));
+        b7.setOnClickListener(v -> addNumber("7"));
+        b8.setOnClickListener(v -> addNumber("8"));
+        b9.setOnClickListener(v -> addNumber("9"));
+        b0.setOnClickListener(v -> addNumber("0"));
 
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="+"
-            android:textSize="28sp" />
+        plus.setOnClickListener(v -> setOperation(1));
+        sub.setOnClickListener(v -> setOperation(2));
+        mul.setOnClickListener(v -> setOperation(3));
+        div.setOnClickListener(v -> setOperation(4));
 
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="0"
-            android:textSize="28sp" />
+        equal.setOnClickListener(v -> calculate());
 
-        <Button
-            android:id="@+id/button14"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="-"
-            android:textSize="28sp" />
+        ac.setOnClickListener(v -> {
+            editText.setText("");
+            value1 = 0;
+            value2 = 0;
+            Addition = false;
+            Subtraction = false;
+            Multiplication = false;
+            Division = false;
+        });
+    }
 
-        <Button
-            android:id="@+id/button15"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="*"
-            android:textSize="28sp" />
+    private void addNumber(String number) {
+        editText.append(number);
+    }
 
-        <Button
-            android:id="@+id/button16"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="/"
-            android:textSize="28sp" />
+    private void setOperation(int operation) {
 
-        <Button
-            android:id="@+id/button17"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="="
-            android:textSize="28sp" />
+        if (editText.getText().toString().isEmpty()) {
+            return;
+        }
 
-        <Button
-            android:id="@+id/button18"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:text="AC"
-            android:textSize="28sp" />
+        value1 = Float.parseFloat(editText.getText().toString());
 
-    </GridLayout>
+        Addition = false;
+        Subtraction = false;
+        Multiplication = false;
+        Division = false;
 
-</LinearLayout>
+        if (operation == 1) {
+            Addition = true;
+        } else if (operation == 2) {
+            Subtraction = true;
+        } else if (operation == 3) {
+            Multiplication = true;
+        } else if (operation == 4) {
+            Division = true;
+        }
+
+        editText.setText("");
+    }
+
+    private void calculate() {
+
+        if (editText.getText().toString().isEmpty()) {
+            return;
+        }
+
+        value2 = Float.parseFloat(editText.getText().toString());
+
+        if (Addition) {
+            editText.setText(String.valueOf(value1 + value2));
+            Addition = false;
+
+        } else if (Subtraction) {
+            editText.setText(String.valueOf(value1 - value2));
+            Subtraction = false;
+
+        } else if (Multiplication) {
+            editText.setText(String.valueOf(value1 * value2));
+            Multiplication = false;
+
+        } else if (Division) {
+
+            if (value2 == 0) {
+                editText.setText("Cannot divide by 0");
+            } else {
+                editText.setText(String.valueOf(value1 / value2));
+            }
+
+            Division = false;
+        }
+    }
+}
